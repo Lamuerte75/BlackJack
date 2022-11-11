@@ -19,9 +19,9 @@ class BlackJack:
                 self.jeu.append(compteur_cartes) # on ajoute la carte 4 fois 
                 
             compteur_cartes+=1 # on incrémente un pour changer la carte
+            
         # Permet de supprimer 5 cartes on les brules car
         # C'est une règle du BlackJack
-        
         for x in range(5):
             supprimer_carte =  random.randint(self.jeu[self.compteur_premier],self.jeu[self.compteur_dernier])
             for x in range(len(self.jeu)):
@@ -29,15 +29,17 @@ class BlackJack:
                     del self.jeu[x]
                     break # on casse la boucle pour eviter la suppresion des cartes de meme valeur
             self.compteur_dernier-=1 
-        return len(self.jeu)
+            
     
         
     
     # choisi une carte aléatoirement pour le joueur 
     # Supprime la carte du jeu 
     def joueur(self):
-        print(self.compteur_dernier)
-        choix_aleatoire_cartes = random.randint(self.jeu[self.compteur_premier],self.jeu[self.compteur_dernier-4])
+        
+        
+        choix_aleatoire_cartes = random.randint(self.jeu[self.compteur_premier],self.jeu[self.compteur_dernier])
+        
         if choix_aleatoire_cartes == 11 or choix_aleatoire_cartes == 12 or choix_aleatoire_cartes == 13:
             self.jeu_joueur+=10
         elif choix_aleatoire_cartes == 14:
@@ -52,8 +54,10 @@ class BlackJack:
                 break # casse la boucle pour éviter quelle supprime toutes les meme cartes du meme chiffr
             
         self.compteur_dernier-=1
+        return self.jeu_joueur
         
-        return self.jeu_joueur,len(self.jeu)
+        
+        
     
     # séléctionne la première cartes au croupier et la supprime du jeu de cartes 
     def croupier(self):
@@ -69,8 +73,9 @@ class BlackJack:
         # cherche quelle carte le croupier a eu et la supprime du jeu de cartes
         for x in range(len(self.jeu)):
             if self.jeu_croupier == self.jeu[x]:
-                del self.jeu[x]
+                del self.jeu[x] 
                 break # casse la boucle pour éviter quelle supprime toutes les meme cartes du meme chiffre
+                
         self.compteur_dernier-=1
        
         return self.jeu_croupier
@@ -80,12 +85,14 @@ class BlackJack:
         pass
         
 black = BlackJack()
-a = black.joueur()
+a = black.ajouter_cartes_et_bruler()
+b = black.croupier()
+
 print(a)
 """
 start_game = True
 if start_game:
-    black.ajouter_cartes()
+    black.ajouter_cartes_et_bruler()
 while start_game:
 """
 
