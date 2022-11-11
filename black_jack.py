@@ -123,12 +123,11 @@ class BlackJack:
     
                 self.compteur_dernier-=1
             print("La valeur de votre jeu est :",self.jeu_croupier)
-            
- 
-       
+           
         return self.liste_jeu_croupier
     
-
+   def tour(self):
+        self.tour+=1
     def probability_to_win(self):
         pass
         
