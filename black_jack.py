@@ -46,7 +46,11 @@ class BlackJack:
                 del self.jeu[x] # on supprime la carte que l'on vient de tirer du jeu 
                 break # on sort de la boucle pour éviter qu'elle supprime toutes les cartes
         return self.jeu
-
+    
+        def probability_to_win(self):
+            pass
+        
+        
 
 black = BlackJack()
 a = black.ajouter_cartes()
