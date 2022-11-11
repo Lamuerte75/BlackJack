@@ -8,7 +8,7 @@ class BlackJack:
         self.jeu_croupier = jeu_croupier
         self.compteur_premier = compteur_premier
         self.compteur_dernier = compteur_dernier
-        self.tour = 0
+        self.tour = self.tour
         
     # ajoute les cartes dans le jeu de cartes et en supprime 5 (on les brules)
     def ajouter_cartes_et_bruler(self):
