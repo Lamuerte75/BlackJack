@@ -29,6 +29,7 @@ class BlackJack:
         return self.jeu_de_carte #,compteur_premier,compteur_dernier
     
          
+    
     def joueur(self):
         # Steps
         # choisi une carte aléatoirement pour le joueur 
@@ -55,7 +56,7 @@ class BlackJack:
             self.la_main_du_joueur+=10 
         elif choix_aleatoire_carte == 14:
             print("Vous avez tirée un AS")
-            self.liste_jeu_joueur.append("AS")
+            self.liste_de_la_main_du_joueur.append("AS")
             choisir_valeur = int(input("Vous pouvez choisir ce que vous preferer comme valeur 1 ou 11"))
             self.la_main_du_joueur+=choisir_valeur
         else:
@@ -71,10 +72,11 @@ class BlackJack:
 
         self.derniere_carte-=1
         print("La valeur de votre jeu est :",self.la_main_du_joueur)
-        
-    # séléctionne la première cartes au croupier et la supprime du jeu de cartes 
+        return self.la_main_du_joueur
+    
+    
     def croupier(self):
-        # Steps
+        # Steps same as Joueur 
         # choisi une carte aléatoirement pour le croupier 
         # On le met dans une liste avec les bons termes des cartes Ex : 11 sera Vallée dans la liste
         # Puis on ajoute la valeur de la carte au jeu du croupier 
@@ -104,7 +106,7 @@ class BlackJack:
             self.la_main_du_croupier+=choisir_valeur
             
         else: 
-            print("Vous avez tirée un ",choix_aleatoire_carte)
+            print("Le croupier a tirée un ",choix_aleatoire_carte)
             self.liste_de_la_main_du_croupier.append(choix_aleatoire_carte)
             self.la_main_du_croupier+=choix_aleatoire_carte
             
@@ -118,12 +120,12 @@ class BlackJack:
         print("La valeur du jeu du croupier est :",self.la_main_du_croupier)
             
  
-        return self.liste_de_la_main_du_croupier
+        return self.la_main_du_croupier
     
     def voir_le_jeu_joueur(self):
         #Permet de voir le  jeu du joueur 
         for x in range(len(self.liste_de_la_main_du_joueur)):
-            self.liste_de_la_main_du_joueur[x],end="")
+            print(self.liste_de_la_main_du_joueur[x],end=" ")
 
     def voir_le_jeu_croupier(self):
         # Permet de voir le jeu du croupier
@@ -138,25 +140,62 @@ class BlackJack:
 black = BlackJack()
 start_game = True
 tour = 1
+print("Le croupier distribue les cartes")
 if  tour == 1:
     #Si la partie commence on ajoute les cartes
     black.ajouter_cartes_et_bruler() # ajoute les jeu de carte
     black.joueur()
     black.croupier()
     black.joueur()
-print("Le croupier distribue les cartes")
+print()
+print()
 # Quand le tour est de 1 le joueur recoit deux cartes et le croupier une 
 
 
 while start_game:
-    black.voir_le_jeu_joueur()
-    choisir_de_tirer_une_autre_carte_joueur = input("Si vous voulez recevoir encore une carte taper 1 sinon appuyer sur n'importe quelle touche")
-    if choisir_de_tirer_une_autre_carte_joueur == 1:
-        black.joueur()
-    black.voir_le_jeu_croupier()
-    choisir_de_tirer_une_autre_carte_croupier = input("Si vous voulez recevoir encore une carte taper 1 sinon appuyer sur n'importe quelle touche")
-    if choisir_de_tirer_une_aure_carte_croupier == 1:
-        black.croupier()
+    print("C'est votre tour ")
+    print("Votre jeu est : "),black.voir_le_jeu_joueur()
+    print()
+    choix_du_joueur = 0  # Permet que le joueur tire x nombre de fois une carte
+    choix_du_croupier = 0 # Permet que le croupier tire x nombre de fois une carte
+    
+    
+    while choix_du_joueur == 0:
+        # Tant que le croupier veux choisir une carte la boucle continue 
+        # Sauf si il dépasse 21
+        choisir_de_tirer_une_autre_carte_joueur = input("Si vous voulez recevoir encore une carte taper 1 sinon appuyer sur n'importe quelle touche ")
+        if choisir_de_tirer_une_autre_carte_joueur == "1":
+            main_du_joueur = black.joueur() # Montre la carte qui vient d'être tirée par le joueur
+            if main_du_joueur > 21:
+                print("Vous avez perdu")
+                start_game = False
+                break 
+        else:
+            print("Le joueur a choisi de ne plus/pas tirer de carte")
+            choix_du_joueur = 1
+    print()
+    # On verifie bien que le joueur est toujours en dessous de 21 
+    if start_game == True:
+        
+        print("Au tour du croupier ")
+        print("Le jeu du croupier est")
+        black.voir_le_jeu_croupier()
+
+        while choix_du_croupier == 0:
+            # Tant que le croupier veux choisir une carte la boucle continue 
+            # Sauf si il dépasse 21
+            choisir_de_tirer_une_autre_carte_croupier = input("Si vous voulez recevoir encore une carte taper 1 sinon appuyer sur n'importe quelle touche ")
+            if choisir_de_tirer_une_autre_carte_croupier == "1":
+                main_du_croupier = black.croupier() ## Montre la carte qui vient d'être tirée par le croupier
+                if main_du_croupier > 21:
+                    print("Vous avez gagnés")
+                    start_game = False
+                    break
+            else:
+                print("Le croupier a choisi de ne plus/pas tirer de carte")
+                choix_du_croupier = 1
+            
+        
         
         
 
