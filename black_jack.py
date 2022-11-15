@@ -1,6 +1,6 @@
 import random 
 class BlackJack:
-    def __init__(self,la_main_du_joueur=0,la_main_du_croupier=0,derniere_carte=51):
+    def __init__(self,la_main_du_joueur=0,la_main_du_croupier=0,derniere_carte=311):
         self.liste_de_la_main_du_joueur = []
         self.liste_de_la_main_du_croupier = []
         self.la_main_du_joueur = la_main_du_joueur
@@ -9,14 +9,20 @@ class BlackJack:
         self.jeu_de_carte = []
     # ajoute les cartes dans le jeu de cartes et en supprime 5 (on les brules)
     def ajouter_cartes_et_bruler(self):
-        valeur_de_la_carte = 2 # permettra de mettre les cartes dans la liste jeu
+        """ Ajoute les cartes dans la liste_jeu_de_cartes pour un total d'un dek de 6 jeu (Blackjack Francais)
+        et brule 5 cartes situé dans le jeu de cartes (Règle du Blackjack oblige) """
+        
+        valeur_de_la_carte = 2 #
+        # On fait 6 jeu donc in range 6
         # on place chaque carte 4 fois, ici nous nous intérrésons seulement au valeur de la carte
-        for _ in range(13):
-            for x in range(4):
-                 self.jeu_de_carte.append(valeur_de_la_carte) #  on ajoute la carte 4 fois 
-                
-            valeur_de_la_carte+=1 # on incrémente un pour changer la carte
-            
+        for _ in range(6):
+            valeur_de_la_carte = 2  #permettra de mettre les cartes dans la liste jeu
+            for _ in range(13):
+                for _ in range(4):
+                     self.jeu_de_carte.append(valeur_de_la_carte) #  on ajoute la carte 4 fois 
+
+                valeur_de_la_carte+=1 # on incrémente un pour changer la carte
+
         # Permet de supprimer 5 cartes on les brules car
         # C'est une règle du BlackJack
         for x in range(5):
@@ -31,12 +37,13 @@ class BlackJack:
          
     
     def joueur(self):
-        # Steps
-        # choisi une carte aléatoirement pour le joueur 
-        # On le met dans une liste avec les bons termes des cartes Ex : 11 sera Vallée dans la liste
-        # Puis on ajoute la valeur de la carte au jeu du joueur 
-        # Supprime la carte du jeu 
-
+        """ 
+        On choisi une carte aléatoirement pour le joueur.
+        On le met dans une liste avec les bons termes des cartes Ex : 11 sera Vallée dans la liste
+        Puis on ajoute la valeur de la carte au jeu du joueur    
+        Supprime la carte du jeu 
+        """
+       
         choix_aleatoire_carte = random.randint(self.jeu_de_carte[0],self.jeu_de_carte[self.derniere_carte])
         
         # Ajoute les cartes du joueur a son dek qui est une liste
@@ -76,11 +83,12 @@ class BlackJack:
     
     
     def croupier(self):
-        # Steps same as Joueur 
-        # choisi une carte aléatoirement pour le croupier 
-        # On le met dans une liste avec les bons termes des cartes Ex : 11 sera Vallée dans la liste
-        # Puis on ajoute la valeur de la carte au jeu du croupier 
-        # Supprime la carte du jeu 
+        """ 
+        On choisi une carte aléatoirement pour le joueur.
+        On le met dans une liste avec les bons termes des cartes Ex : 11 sera Vallée dans la liste
+        Puis on ajoute la valeur de la carte au jeu du joueur    
+        Supprime la carte du jeu 
+        """
         
         choix_aleatoire_carte = random.randint(self.jeu_de_carte[0],self.jeu_de_carte[self.derniere_carte])
         # Ajoute les cartes du joueur a son dek qui est une liste
@@ -123,18 +131,17 @@ class BlackJack:
         return self.la_main_du_croupier
     
     def voir_le_jeu_joueur(self):
-        #Permet de voir le  jeu du joueur 
+        """ Parcours la liste de la main du joueur et lui affiche ses cartes """ 
         for x in range(len(self.liste_de_la_main_du_joueur)):
             print(self.liste_de_la_main_du_joueur[x],end=" ")
 
     def voir_le_jeu_croupier(self):
-        # Permet de voir le jeu du croupier
+       """ Parcours la liste de la main du croupier et lui affiche ses cartes """ 
         for x in range(len(self.liste_de_la_main_du_croupier)):
             print("Le croupier a ",self.liste_de_la_main_du_croupier[x],end=" ")
         
-    def gameplay(self):
-        pass
     def probability_to_win(self):
+        """ Permet de calculer la probabilité que le joueur a de gagner grace à la méthode ... """
         pass
         
 black = BlackJack()
