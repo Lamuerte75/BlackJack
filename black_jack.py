@@ -137,7 +137,7 @@ class BlackJack:
 
     def voir_le_jeu_croupier(self):
        """ Parcours la liste de la main du croupier et lui affiche ses cartes """ 
-        for x in range(len(self.liste_de_la_main_du_croupier)):
+       for x in range(len(self.liste_de_la_main_du_croupier)):
             print("Le croupier a ",self.liste_de_la_main_du_croupier[x],end=" ")
         
     def probability_to_win(self):
