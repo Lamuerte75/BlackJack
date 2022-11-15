@@ -77,7 +77,7 @@ class BlackJack:
                 del self.jeu_de_carte[carte]
                 break # pour eviter de supprimer les autres cartes de même valeur 
 
-        self.derniere_carte-=1
+            self.derniere_carte-=1
         print("La valeur de votre jeu est :",self.la_main_du_joueur)
         return self.la_main_du_joueur
     
@@ -124,7 +124,7 @@ class BlackJack:
                 del self.jeu_de_carte[carte]
                 break # pour eviter de supprimer les autres cartes de même valeur 
     
-                self.derniere_carte-=1
+            self.derniere_carte-=1
         print("La valeur du jeu du croupier est :",self.la_main_du_croupier)
             
  
