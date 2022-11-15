@@ -31,7 +31,7 @@ class BlackJack:
                 if supprimer_carte == self.jeu_de_carte[x]:
                     del self.jeu_de_carte[x]
                     break # on casse la boucle pour eviter la suppresion des cartes de meme valeur
-                self.derniere_carte-=1 
+            self.derniere_carte-=1 
         return self.jeu_de_carte #,compteur_premier,compteur_dernier
     
          
