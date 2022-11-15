@@ -132,9 +132,10 @@ class BlackJack:
     
     def voir_le_jeu_joueur(self):
         """ Parcours la liste de la main du joueur et lui affiche ses cartes """ 
+        
         for x in range(len(self.liste_de_la_main_du_joueur)):
             print(self.liste_de_la_main_du_joueur[x],end=" ")
-
+                
     def voir_le_jeu_croupier(self):
        """ Parcours la liste de la main du croupier et lui affiche ses cartes """ 
        for x in range(len(self.liste_de_la_main_du_croupier)):
@@ -153,10 +154,13 @@ if  tour == 1:
     black.ajouter_cartes_et_bruler() # ajoute les jeux de carte
     black.joueur() # distribue une carte au joueur
     black.croupier() # distribue une carte au croupier
-    black.joueur() # redistribue une carte au joueur car on est au premier tour 
+    arriver_direct_a_21_joueur = black.joueur()# redistribue une carte au joueur car on est au premier tour 
 print()
 print() 
-
+if arriver_direct_a_21_joueur == 21:
+    print("BLACKJACK !!!!!!!")
+    print("Le joueur gagne")
+    start_game = False
 
 while start_game:
     print("C'est votre tour ")
