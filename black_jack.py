@@ -154,28 +154,29 @@ if  tour == 1:
     black.ajouter_cartes_et_bruler() # ajoute les jeux de carte
     black.joueur() # distribue une carte au joueur
     black.croupier() # distribue une carte au croupier
-    arriver_direct_a_21_joueur = black.joueur()# redistribue une carte au joueur car on est au premier tour 
+    
 print()
 print() 
-if arriver_direct_a_21_joueur == 21:
-    print("BLACKJACK !!!!!!!")
-    print("Le joueur gagne")
-    start_game = False
-
 while start_game:
     print("C'est votre tour ")
     print("Votre jeu est : "),black.voir_le_jeu_joueur()
     print()
     choix_du_joueur = 0  # Permet que le joueur tire x nombre de fois une carte
-    choix_du_croupier = 0 # Permet que le croupier tire x nombre de fois une carte
-    
-    
     while choix_du_joueur == 0:
-        # Tant que le croupier veux choisir une carte la boucle continue 
+        # Tant que le joueur veux choisir une carte la boucle continue 
         # Sauf si il dépasse 21
-        print("Le joueur choisi une carte")
-        choisir_de_tirer_une_autre_carte_joueur = input("Si vous voulez recevoir encore une carte taper 1 sinon appuyer sur n'importe quelle touche ")
+        print("Le joueur tire une carte")
         main_du_joueur = black.joueur() # Montre la carte qui vient d'être tirée par le joueur
+        print("Votre jeu est : "),black.voir_le_jeu_joueur()
+        # Si le joueur a un blackjack  ( donc a 21) dès le premier tour 
+        # Il gagne automatiquement 
+        # Sinon il choisi ou non de tirer une autre carte
+        if main_du_joueur == 21 and tour == 1:
+            print("BLACKJACK !!!!!!!")
+            break
+            start_game = False
+        choisir_de_tirer_une_autre_carte_joueur = input("Si vous voulez recevoir encore une carte taper 1 sinon appuyer sur n'importe quelle touche ")
+        
         if choisir_de_tirer_une_autre_carte_joueur == "1":
             if main_du_joueur > 21:
                 print("Vous avez perdu")
@@ -184,39 +185,36 @@ while start_game:
         else:
             print("Le joueur a choisi de ne plus/pas tirer de carte")
             choix_du_joueur = 1
+        tour+=1
     print()
     # On verifie bien que le joueur est toujours en dessous de 21 
     if start_game: # Si le joueur n'a pas encore perdu 
-        
         print("Au tour du croupier ")
         print("Le jeu du croupier est")
         black.voir_le_jeu_croupier()
-
-        while choix_du_croupier == 0:
-            # Tant que le croupier veux choisir une carte la boucle continue 
-            # Sauf si il dépasse 21
-            choisir_de_tirer_une_autre_carte_croupier = input("Si vous voulez recevoir encore une carte taper 1 sinon appuyer sur n'importe quelle touche ")
-            main_du_croupier = black.croupier() ## Montre la carte qui vient d'être tirée par le croupier
-            if choisir_de_tirer_une_autre_carte_croupier == "1":
-               
-                if main_du_croupier > 21:
-                    print("Vous avez gagnés")
-                    start_game = False # Le jeu est terminer
-                    break
-            else:
-                print("Le croupier a choisi de ne plus/pas tirer de carte")
-                choix_du_croupier = 1
+        main_du_croupier = black.croupier()
+        while main_du_croupier < 17:
+            main_du_croupier = black.croupier()
+            if main_du_croupier > 21:
+                print("Le croupier à dépasser 21")
+                print("Vous avez gagnés")
+                start_game = False # Le jeu est terminer
+                break
+            if main_du_croupier > main_du_joueur:
+                break 
+                
+                
     # Si ni le croupier ni le joueur à dépasser 21
     # Et que le joueur ainsi que le croupier ne pioche plus
     # On compare qui à  le meilleur jeu de carte
-    if start_game  == True and choix_du_joueur == 1 and choix_du_croupier == 1:
+    if start_game  == True and choix_du_joueur == 1:
         print("le croupier à ",main_du_croupier)
         print("Vous avez",main_du_joueur)
         if main_du_joueur == main_du_croupier:
             print("Egalité")
         if main_du_joueur > main_du_croupier:
             print("Vous avez gagné")
-        else:
+        if main_du_croupier > main_du_joueur:
             print("Vous avez perdu")
         start_game = False
             
