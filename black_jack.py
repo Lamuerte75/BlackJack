@@ -77,7 +77,7 @@ class BlackJack:
                 del self.jeu_de_carte[carte]
                 break # pour eviter de supprimer les autres cartes de même valeur 
 
-            self.derniere_carte-=1
+            self.derniere_carte-=1 # vu qu'on a supprimé une carte on enleve 1 à la longueur du jeu
         print("La valeur de votre jeu est :",self.la_main_du_joueur)
         return self.la_main_du_joueur
     
@@ -124,7 +124,7 @@ class BlackJack:
                 del self.jeu_de_carte[carte]
                 break # pour eviter de supprimer les autres cartes de même valeur 
     
-            self.derniere_carte-=1
+            self.derniere_carte-=1 # vu qu'on a supprimé une carte on enleve 1 à la longueur du jeu
         print("La valeur du jeu du croupier est :",self.la_main_du_croupier)
             
  
@@ -150,13 +150,12 @@ tour = 1
 print("Le croupier distribue les cartes")
 if  tour == 1:
     #Si la partie commence on ajoute les cartes
-    black.ajouter_cartes_et_bruler() # ajoute les jeu de carte
-    black.joueur()
-    black.croupier()
-    black.joueur()
+    black.ajouter_cartes_et_bruler() # ajoute les jeux de carte
+    black.joueur() # distribue une carte au joueur
+    black.croupier() # distribue une carte au croupier
+    black.joueur() # redistribue une carte au joueur car on est au premier tour 
 print()
-print()
-# Quand le tour est de 1 le joueur recoit deux cartes et le croupier une 
+print() 
 
 
 while start_game:
@@ -170,9 +169,10 @@ while start_game:
     while choix_du_joueur == 0:
         # Tant que le croupier veux choisir une carte la boucle continue 
         # Sauf si il dépasse 21
+        print("Le joueur choisi une carte")
         choisir_de_tirer_une_autre_carte_joueur = input("Si vous voulez recevoir encore une carte taper 1 sinon appuyer sur n'importe quelle touche ")
+        main_du_joueur = black.joueur() # Montre la carte qui vient d'être tirée par le joueur
         if choisir_de_tirer_une_autre_carte_joueur == "1":
-            main_du_joueur = black.joueur() # Montre la carte qui vient d'être tirée par le joueur
             if main_du_joueur > 21:
                 print("Vous avez perdu")
                 start_game = False
@@ -182,7 +182,7 @@ while start_game:
             choix_du_joueur = 1
     print()
     # On verifie bien que le joueur est toujours en dessous de 21 
-    if start_game == True:
+    if start_game: # Si le joueur n'a pas encore perdu 
         
         print("Au tour du croupier ")
         print("Le jeu du croupier est")
@@ -192,23 +192,30 @@ while start_game:
             # Tant que le croupier veux choisir une carte la boucle continue 
             # Sauf si il dépasse 21
             choisir_de_tirer_une_autre_carte_croupier = input("Si vous voulez recevoir encore une carte taper 1 sinon appuyer sur n'importe quelle touche ")
+            main_du_croupier = black.croupier() ## Montre la carte qui vient d'être tirée par le croupier
             if choisir_de_tirer_une_autre_carte_croupier == "1":
-                main_du_croupier = black.croupier() ## Montre la carte qui vient d'être tirée par le croupier
+               
                 if main_du_croupier > 21:
                     print("Vous avez gagnés")
-                    start_game = False
+                    start_game = False # Le jeu est terminer
                     break
             else:
                 print("Le croupier a choisi de ne plus/pas tirer de carte")
                 choix_du_croupier = 1
+    # Si ni le croupier ni le joueur à dépasser 21
+    # Et que le joueur ainsi que le croupier ne pioche plus
+    # On compare qui à  le meilleur jeu de carte
+    if start_game  == True and choix_du_joueur == 1 and choix_du_croupier == 1:
+        print("le croupier à ",main_du_croupier)
+        print("Vous avez",main_du_joueur)
+        if main_du_joueur == main_du_croupier:
+            print("Egalité")
+        if main_du_joueur > main_du_croupier:
+            print("Vous avez gagné")
+        else:
+            print("Vous avez perdu")
+        start_game = False
             
+             
         
         
-        
-
-
-
-    
-
-
-
