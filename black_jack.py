@@ -256,29 +256,16 @@ class BlackJack:
             self.liste_de_la_main_du_croupier = [] # Le croupier n'a plus de carte dans son jeu
             self.la_main_du_joueur = 0 # On reinitialise la main du joueur à 0 
             self.la_main_du_croupier = 0 # On reinitialise la main du croupier a 0 
+            if len(self.jeu_de_carte) <= 50:
+                self.jeu_de_carte = []
         print()    
         nouvelle_partie = int(input("Voulez vous faire une partie  1 = Oui, Autre touche = Non "))
         print()
         if nouvelle_partie == 1:
             self.start_game = True # On peut refaire une partie 
-        self.partie_total_jouer+=1
+            
         return nouvelle_partie  
-    def nombre_total_de_cartes_dans_le_jeu(self):
-        """
-        Si le jeu de carte contient 50 cartes ou moins : 
-        On ajoute un nouveau dek 
-        Pour les anciennes cartes dans le jeu on les supprimes
-        Si on a de nouveau 312 cartes donc 6 jeu comme ce joue le blackjackfrancais
-        Alors on sort de la boucle
-        Sinon on continue à supprimer les anciennes cartes
-        """
-        if len(self.jeu_de_cartes) <= 50:
-            ajout_du_jeu_de_carte = black.ajouter_cartes_et_bruler()
-            for anciennecarte in range(len(ajout_du_jeu_de_carte)):
-                if len(ajout_du_jeu_de_carte) < 313:
-                    break
-                else:
-                    del ajout_du_jeu_de_carte[anciennecarte]
+
     def probability_to_win(self):
         """ Permet de calculer la probabilité que le joueur a de gagner grace à la méthode ... """
         pass
@@ -287,8 +274,6 @@ black = BlackJack()
 ajout_du_jeu_de_carte = black.ajouter_cartes_et_bruler() # Fonctionne correctement 
 partie = black.restart_game()
 while partie ==1:
-    if len(ajout_du_jeu_de_carte) <= 50:
-        black.nombre_total_de_cartes_dans_le_jeu()
     black.joueur()
     black.croupier()
     black.jeu_du_joueur()
@@ -297,8 +282,10 @@ while partie ==1:
     nombre_partie_jouer = black.nombre_de_partie_jouer()
     if black.restart_game() != 1:
         partie = 0
+    if len(ajout_du_jeu_de_carte) <= 50:
+        black.ajouter_cartes_et_bruler
         
-print("Le joueur à gagner :",gagnant,"sur",nombre_partie_jouer//2,"partie")
+print("Le joueur à gagner :",gagnant,"sur",nombre_partie_jouer,"partie")
 
 #a = black.jeu_du_joueur()
 
