@@ -49,7 +49,7 @@ class BlackJack:
         
        
         print("Le joueur s'apprête à tirer une carte")
-        choix_aleatoire_carte = random.randint(self.jeu_de_carte[0],self.jeu_de_carte[self.derniere_carte])
+        choix_aleatoire_carte = random.choice(self.jeu_de_carte)
         
         # Ajoute les cartes du joueur a son dek qui est une liste
         if choix_aleatoire_carte == 11:
@@ -97,7 +97,7 @@ class BlackJack:
         """
         self.liste_de_la_main_du_croupier = liste_de_la_main_du_croupier # stockera le jeu du croupier dans une liste 
         print("Le croupier s'apprête à tirer une carte")
-        choix_aleatoire_carte = random.randint(self.jeu_de_carte[0],self.jeu_de_carte[self.derniere_carte])
+        choix_aleatoire_carte = random.choice(self.jeu_de_carte)
         # Ajoute les cartes du joueur a son dek qui est une liste
         if choix_aleatoire_carte == 11:
             print("Le croupier a tirée un Vallée") 
@@ -231,7 +231,9 @@ class BlackJack:
         return self.partie_gagner_joueur
     def nombre_de_partie_jouer(self):
         """ Incrémente 1 au nombre de partie jouer et renvoie le nombre de partie jouer"""
-        self.partie_total_jouer+=1
+        self.partie_total_jouer+=1    
+        return self.partie_total_jouer
+        
     def restart_game(self):
         
         """ 
@@ -251,8 +253,9 @@ class BlackJack:
             self.liste_de_la_main_du_croupier = [] # Le croupier n'a plus de carte dans son jeu
             self.la_main_du_joueur = 0 # On reinitialise la main du joueur à 0 
             self.la_main_du_croupier = 0 # On reinitialise la main du croupier a 0 
-            
+        print()    
         nouvelle_partie = int(input("Voulez vous faire une partie  1 = Oui, Autre touche = Non "))
+        print()
         if nouvelle_partie == 1:
             self.start_game = True # On peut refaire une partie 
         self.partie_total_jouer+=1
@@ -270,10 +273,13 @@ while partie ==1:
     black.croupier()
     black.jeu_du_joueur()
     black.jeu_du_croupier()
-    black.who_win()
+    gagnant = black.who_win()
     nombre_partie_jouer = black.nombre_de_partie_jouer()
-    black.restart_game()
-print("Le joueur à gagner :",partie,"sur",nombre_partie_jouer,"partie")
+    print(nombre_partie_jouer)
+    if black.restart_game() != 1:
+        partie = 0
+        
+print("Le joueur à gagner :",gagnant,"sur",nombre_partie_jouer//2,"partie")
 
 #a = black.jeu_du_joueur()
 
