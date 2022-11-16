@@ -8,7 +8,7 @@ class BlackJack:
         self.partie_total_jouer = partie_total_jouer
         #self.tour = tour
     # ajoute les cartes dans le jeu de cartes et en supprime 5 (on les brules)
-    def ajouter_cartes_et_bruler(self,jeu_de_carte=[],derniere_carte=311):
+    def ajouter_cartes_et_bruler(self,jeu_de_carte=[],derniere_carte=312):
         self.jeu_de_carte = jeu_de_carte # servira à stocker le jeu de carte 
         self.derniere_carte = derniere_carte # permet de savoir le dernier indice de carte 
         """ Ajoute les cartes dans la liste_jeu_de_cartes pour un total d'un dek de 6 jeu (Blackjack Francais)
@@ -28,7 +28,7 @@ class BlackJack:
         # Permet de supprimer 5 cartes on les brules car
         # C'est une règle du BlackJack
         for x in range(5):
-            supprimer_carte =  random.randint(self.jeu_de_carte[0],self.jeu_de_carte[self.derniere_carte])
+            supprimer_carte =  random.choice(jeu_de_carte)#random.randint(self.jeu_de_carte[0],self.jeu_de_carte[self.derniere_carte])
             for x in range(len(self.jeu_de_carte)):
                 if supprimer_carte == self.jeu_de_carte[x]:
                     del self.jeu_de_carte[x]
@@ -167,6 +167,7 @@ class BlackJack:
                     self.start_game = False
                     
             if  self.la_main_du_joueur > 21:
+                print()
                 print("Vous avez perdu")
                 self.start_game = False
                 break 
@@ -185,9 +186,10 @@ class BlackJack:
         Si la main du croupier dépasse 21 le joueur gagne
         Si la main du croupier est supérieur au jeu du joueur il arrête de tirer des cartes
         """
-        print()
-        print("Au tour du croupier ")
-        print()
+        if self.start_game:
+            print()
+            print("Au tour du croupier ")
+            print()
         if self.start_game: # Si le joueur n'a pas dépasser 21 
             
             print("La valeur du jeu du croupier est :",self.la_main_du_croupier)
@@ -198,6 +200,7 @@ class BlackJack:
                 print()
                 
                 if self.la_main_du_croupier > 21:
+                   print()
                    print("Le croupier à dépasser 21")
                    print("Vous avez gagnés")
                    self.start_game = False # Stipule que le jeu est bien terminé
@@ -260,22 +263,38 @@ class BlackJack:
             self.start_game = True # On peut refaire une partie 
         self.partie_total_jouer+=1
         return nouvelle_partie  
-    
+    def nombre_total_de_cartes_dans_le_jeu(self):
+        """
+        Si le jeu de carte contient 50 cartes ou moins : 
+        On ajoute un nouveau dek 
+        Pour les anciennes cartes dans le jeu on les supprimes
+        Si on a de nouveau 312 cartes donc 6 jeu comme ce joue le blackjackfrancais
+        Alors on sort de la boucle
+        Sinon on continue à supprimer les anciennes cartes
+        """
+        if len(self.jeu_de_cartes) <= 50:
+            ajout_du_jeu_de_carte = black.ajouter_cartes_et_bruler()
+            for anciennecarte in range(len(ajout_du_jeu_de_carte)):
+                if len(ajout_du_jeu_de_carte) < 313:
+                    break
+                else:
+                    del ajout_du_jeu_de_carte[anciennecarte]
     def probability_to_win(self):
         """ Permet de calculer la probabilité que le joueur a de gagner grace à la méthode ... """
         pass
         
 black = BlackJack()
-black.ajouter_cartes_et_bruler() # Fonctionne correctement 
+ajout_du_jeu_de_carte = black.ajouter_cartes_et_bruler() # Fonctionne correctement 
 partie = black.restart_game()
 while partie ==1:
+    if len(ajout_du_jeu_de_carte) <= 50:
+        black.nombre_total_de_cartes_dans_le_jeu()
     black.joueur()
     black.croupier()
     black.jeu_du_joueur()
     black.jeu_du_croupier()
     gagnant = black.who_win()
     nombre_partie_jouer = black.nombre_de_partie_jouer()
-    print(nombre_partie_jouer)
     if black.restart_game() != 1:
         partie = 0
         
