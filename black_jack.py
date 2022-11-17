@@ -1,19 +1,18 @@
 import random 
 class BlackJack:
-    def __init__(self,start_game=True,la_main_du_joueur=0,la_main_du_croupier=0,partie_gagner_joueur=0,partie_total_jouer=0,liste_de_la_main_du_joueur=[],liste_de_la_main_du_croupier=[]):
+    def __init__(self,start_game=True,la_main_du_joueur=0,la_main_du_croupier=0,partie_gagner_joueur=0,partie_total_jouer=0,liste_de_la_main_du_joueur=[],liste_de_la_main_du_croupier=[],jeu_de_cartes):
         self.la_main_du_joueur = la_main_du_joueur # servira a connaitre la valeur de la main du joueur
         self.liste_de_la_main_du_joueur = liste_de_la_main_du_joueur
         self.la_main_du_croupier = la_main_du_croupier # servira a connaitre la valeur de la main du croupier
         self.liste_de_la_main_du_croupier = liste_de_la_main_du_croupier
+        self.jeu_de_carte = jeu_de_carte
         self.start_game = start_game # pour que la partie de blackjack puisse ce lancer
         self.partie_gagner_joueur = partie_gagner_joueur # comptabilise le nombre de partie gagner par le joueur
         self.partie_total_jouer = partie_total_jouer
         
-        #self.tour = tour
+        
     # ajoute les cartes dans le jeu de cartes et en supprime 5 (on les brules)
-    def ajouter_cartes_et_bruler(self,jeu_de_carte=[],derniere_carte=312):
-        self.jeu_de_carte = jeu_de_carte # servira à stocker le jeu de carte 
-        self.derniere_carte = derniere_carte # permet de savoir le dernier indice de carte 
+    def ajouter_cartes_et_bruler(self,derniere_carte=312):
         """ Ajoute les cartes dans la liste_jeu_de_cartes pour un total d'un dek de 6 jeu (Blackjack Francais)
         et brule 5 cartes situé dans le jeu de cartes (Règle du Blackjack oblige) """
         
