@@ -11,7 +11,8 @@ Détails du programme pour une bonne compréhension ultérieur :
 3. Interdiction de doubler 
 4. Nous utiliserons le Blackjack dit Francais c'est à dire 6 jeu de cartes
 
-Maintenant que vous avez eu un aperçu de la phase visible, nous allons approfondir. :)
+Maintenant que vous avez eu un aperçu de la phase visible, nous allons approfondir le sujet en séparant la compréhension du programme et son élaboration en 3 axes :
+Premièrement nous définirons les méthodes utilisés ainsi que les/leurs attributs. Puis par la suite nous expliquerons en bref dans un ordre chronologique les Etapes qu'effectue mon programme, et pour finir nous verrons le journal de bord ( les problèmes que j'ai pu rencontrer durant la conception de ce projet).
 
 Ce programme est totalement fait en POO et comporte de nombreuses méthodes et d'attribut : 
 
@@ -26,7 +27,7 @@ jeu_du_croupier --> Le croupier pioche une carte tant que la valeur de son jeu e
 who_win --> Permet de savoir qui a gagner grâce à des conditions
 nombre_de_partie_jouer --> Comptabilise le nombre de partie jouer
 restart_game --> Reinitialise la main du croupier et du joueur, ainsi que leur valeur et si il y 50 cartes ou moins dans le jeu, On vide le jeu de cartes.
-
+probability_to_win --> Qui va nous permettre de connaitre la probabilité du joueur de gagner # Méthodes pas encore faites
 Les attributs :
 self.jeu_de_carte -->list : Permet de stocker le jeu de cartes 
 self.derniere_carte -->int : Permet de
@@ -36,4 +37,22 @@ self.liste_de_la_main_du_joueur -->list : Permet de stocker les cartes du joueur
 self.choix_du_joueur -->int : Permet de savoir quand le joueur ne voudra plus tirer de cartes
 self.tour -->int : Permet de compter le nombre de tour (utilisation : juste pour le premier au cas où le joueur  fait un blackjack)
 self.derniere_carte -->int : Je pense qu'elle me sert plus à rien du au fait que j'utilise random.choice mais elle permettait d'avoir le dernier indice du jeu de carte
+
+
+Comment fonctionne le Programme : 
+
+Les Etapes :
+
+1. Tous d'abord on va initialiser le jeu de cartes et retirer 5 cartes (on les brules)
+2. On fait tirer une carte aléatoirement au croupier et au joueur (2 fois au joueur si c'est le premier tour, après que le croupier est reçus sa premiere cartes
+3. On oublie pas de bien supprimer les cartes tirées du jeu de cartes
+4. On permet au joueur de tirer une autre carte si il le souhaite, du côté du croupier le tirage sera automatique et va respecter le "croupier de base".
+5. On compare qui a gagner 
+6. Puis on relance une partie si le joueur souhaite rejouer
+
+Si j'y arrive une Etape s'ajoutera avant l'étape 4 qui permettra de compter 
+
+Journal de Bord : 
+
+
 
