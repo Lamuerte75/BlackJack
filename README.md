@@ -28,6 +28,8 @@ who_win --> Permet de savoir qui a gagner grâce à des conditions
 nombre_de_partie_jouer --> Comptabilise le nombre de partie jouer
 restart_game --> Reinitialise la main du croupier et du joueur, ainsi que leur valeur et si il y 50 cartes ou moins dans le jeu, On vide le jeu de cartes.
 probability_to_win --> Qui va nous permettre de connaitre la probabilité du joueur de gagner # Méthodes pas encore faites
+
+
 Les attributs :
 self.jeu_de_carte -->list : Permet de stocker le jeu de cartes 
 self.derniere_carte -->int : Permet de
@@ -52,7 +54,37 @@ Les Etapes :
 
 Si j'y arrive une Etape s'ajoutera avant l'étape 4 qui permettra de compter 
 
+Lisais ça avant de lire le Journal de Bord : 
+
+Dans le Journal de Bord je ne parlerais que des problèmes moyens ou majeurs que j'ai pu avoir lors de la création de ce Projet. 
+
 Journal de Bord : 
 
+11/11/2022 : 
+Lorsque je voulais bruler les cartes (donc les supprimer) du jeu de cartes un problème d'index avait lieu : list index out of range créer lorsque le joueur voulait tirer une carte.
+Le problème étant dû a self.compteur_dernier qui était était trop elever par rapport a la taille du jeu de cartes. 
+J'ai pu le résoudre en enlevant 1 au compteur dernier.
+
+12/11/2022 : 
+
+Début d'un nouveau fichier gameplay où la partie était censer se dérouler
+Cependant nombreux problèmes tels que variable undefined ou autres 
+Abbendons du fichiers Gameplay etant donné que cela rajouter trop de difficultés et aussi que un seul fichier suffisait en fin de compte
+
+
+15/11/2022 : 
+
+Ajout de 5 nouveau jeu de carte en plus de celui précèdent (comme le Blackjack français fait), encore une fois problème d'index dû à l'ajout des nouveau dek.
+Problème résolu et qui était dû à seulement un décalage de self.derniere_carte
+
+16/11/2022 : 
+Problème : empty for randrange lié au module random et la méthode random.randint() 
+Résolu en utilisant simplement random.choice() à la place de random.randint()
+
+17/11/2022 : 
+
+Lorsque je lance une nouvelle partie la valeur du jeu du croupier et du joueur et de 0.
+Cependant on voit les cartes précèdentes dans leurs jeu + celle de la partie qui se déroule actuellement.
+Résolution du Problèmes en définissant la liste du jeu du joueur et celui du croupier dans le __init__ au lieu que dans les méthodes voir_le_jeu_joueur() et voir_le_jeu_croupier()
 
 
