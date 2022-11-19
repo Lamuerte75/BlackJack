@@ -55,11 +55,20 @@ Les Etapes :
 1. Tous d'abord on va initialiser le jeu de cartes et retirer 5 cartes (on les brules)
 2. On fait tirer une carte aléatoirement au croupier et au joueur (2 fois au joueur si c'est le premier tour, après que le croupier est reçus sa premiere cartes
 3. On oublie pas de bien supprimer les cartes tirées du jeu de cartes
-4. On permet au joueur de tirer une autre carte si il le souhaite, du côté du croupier le tirage sera automatique et va respecter le "croupier de base".
+4. On affiche le compteur ( pour connaitre les probabilité) permet au joueur de tirer une autre carte si il le souhaite, du côté du croupier le tirage sera automatique et va respecter le "croupier de base".
 5. On compare qui a gagner 
 6. Puis on relance une partie si le joueur souhaite rejouer
 
-Si j'y arrive une Etape s'ajoutera avant l'étape 4 qui permettra de compter 
+Compter les cartes : 
+
+Pour compter les cartes, nous utiliserons la méthode Hi - Lo : 
+Elle est très simple à utilisé 
+Quand le croupier tire une carte de haute valeur : AS, Roi, Dame, Vallet On enleve 1 au compteur
+Si il tire 7, 8 ou 9 on ajoute 0 au compteur
+Si il tire 2, 3 , 4 , 5 ou 6 on ajoute 1 au compteur 
+Plus le sabot est chaud donc que le compteur >= 2 plus on à une chance de tomber sur une carte élevé et donc de gagner
+Si le compteur == 0 nul alors nous pouvons émettre aucune probabilités
+Si le compteur < 0 mieux vaux éviter de miser 
 
 Lisais ça avant de lire le Journal de Bord : 
 
