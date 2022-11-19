@@ -4,12 +4,19 @@ Tous d'abord avant de vous lancer dans la lecture appronfie de mon programme je 
 https://www.guide-blackjack.com/regles-du-black-jack.html 
 https://www.youtube.com/watch?v=ddu_fYRuv5I&feature=youtu.be 
 
+Si vous n'avez pas la foi je vais vous expliquer brièvement comment jouer au Blackjack :
+Il faut gagner le croupier sans dépasser 21 si ni le joueur ni le croupier à dépasser 21 on va comparer leurs cartes
+Le plus haut gagne. 
+Les bûches donc les Vallets Dame Roi AS ont une valeur de 10 
+L'AS vaut 1 ou 11 dépendant du Jeu 
+
+
 Détails du programme pour une bonne compréhension ultérieur :
 
 1. Pas de mise de la part du joueur 
 2. Au lieu de la possibilité de plusieurs joueurs : Un seul joueur s'affrontera contre le croupier
 3. Interdiction de doubler 
-4. Nous utiliserons le Blackjack dit Francais c'est à dire 6 jeu de cartes
+4. Le sabot sera constitué de 6 jeu de cartes ( comme le BlackJack est joué en France
 
 Maintenant que vous avez eu un aperçu de la phase visible, nous allons approfondir le sujet en séparant la compréhension du programme et son élaboration en 3 axes :
 Premièrement nous définirons les méthodes utilisés ainsi que les/leurs attributs. Puis par la suite nous expliquerons en bref dans un ordre chronologique les Etapes qu'effectue mon programme, et pour finir nous verrons le journal de bord ( les problèmes que j'ai pu rencontrer durant la conception de ce projet).
