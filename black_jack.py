@@ -1,22 +1,22 @@
 import random 
 class BlackJack:
-    def __init__(self,start_game=True,la_main_du_joueur=0,la_main_du_croupier=0,partie_gagner_joueur=0,partie_total_jouer=0,liste_de_la_main_du_joueur=[],liste_de_la_main_du_croupier=[],jeu_de_cartes):
+    def __init__(self,start_game=True,la_main_du_joueur=0,la_main_du_croupier=0,partie_gagner_joueur=0,partie_total_jouer=0,compteur_cartes=0,liste_de_la_main_du_joueur=[],liste_de_la_main_du_croupier=[]):
         self.la_main_du_joueur = la_main_du_joueur # servira a connaitre la valeur de la main du joueur
         self.liste_de_la_main_du_joueur = liste_de_la_main_du_joueur
-        self.la_main_du_croupier = la_main_du_croupier # servira a connaitre la valeur de la main du croupier
         self.liste_de_la_main_du_croupier = liste_de_la_main_du_croupier
-        self.jeu_de_carte = jeu_de_carte
+        self.la_main_du_croupier = la_main_du_croupier # servira a connaitre la valeur de la main du croupier
         self.start_game = start_game # pour que la partie de blackjack puisse ce lancer
         self.partie_gagner_joueur = partie_gagner_joueur # comptabilise le nombre de partie gagner par le joueur
-        self.partie_total_jouer = partie_total_jouer
-        
-        
+        self.partie_total_jouer = partie_total_jouer # nombre total de partie jouer
+        self.compteur_cartes = compteur_cartes  # permet de compter les cartes sortant
+        #self.tour = tour
     # ajoute les cartes dans le jeu de cartes et en supprime 5 (on les brules)
-    def ajouter_cartes_et_bruler(self,derniere_carte=312):
+    def ajouter_cartes_et_bruler(self,jeu_de_carte=[],derniere_carte=312):
+        self.jeu_de_carte = jeu_de_carte # servira à stocker le jeu de carte 
+        self.derniere_carte = derniere_carte # permet de savoir le dernier indice de carte 
         """ Ajoute les cartes dans la liste_jeu_de_cartes pour un total d'un dek de 6 jeu (Blackjack Francais)
         et brule 5 cartes situé dans le jeu de cartes (Règle du Blackjack oblige) """
         
-        valeur_de_la_carte = 2 #
         # On fait 6 jeu donc in range 6
         # on place chaque carte 4 fois, ici nous nous intérrésons seulement au valeur de la carte
         for _ in range(6):
@@ -40,38 +40,46 @@ class BlackJack:
        
          
     
-    def joueur(self):
+    def joueur(self,liste_de_la_main_du_joueur=[]):
         """ 
         On choisi une carte aléatoirement pour le joueur.
         On le met dans une liste avec les bons termes des cartes Ex : 11 sera Vallée dans la liste
         Puis on ajoute la valeur de la carte au jeu du joueur    
         Supprime la carte du jeu 
-        """ 
+        """
+        self.liste_de_la_main_du_joueur = liste_de_la_main_du_joueur # stockera le jeu du joueur dans une liste 
         
        
         print("Le joueur s'apprête à tirer une carte")
         choix_aleatoire_carte = random.choice(self.jeu_de_carte)
-        
+        if choix_aleatoire_carte == 2 or choix_aleatoire_carte == 3 or choix_aleatoire_carte == 4 or choix_aleatoire_carte == 5 or choix_aleatoire_carte == 6:
+            print("Le croupier a tirée un ",choix_aleatoire_carte)
+            self.liste_de_la_main_du_joueur.append(choix_aleatoire_carte)
+            self.la_main_du_joueur+=choix_aleatoire_carte
+            self.compteur_cartes = self.compteur_cartes + 1
         # Ajoute les cartes du joueur a son dek qui est une liste
-        if choix_aleatoire_carte == 11:
-            print("Vous avez tirée un Vallée")
-            self.liste_de_la_main_du_joueur.append("Vallée") # ajoute la valeur du choix aleatoire dans la liste du jeu du joueur
+        elif choix_aleatoire_carte == 11:
+            print("Vous avez tiré un Valet")
+            self.liste_de_la_main_du_joueur.append("Valet") # ajoute la valeur du choix aleatoire dans la liste du jeu du joueur
             self.la_main_du_joueur+=10 # ajoute la valeur du choix aleatoire dans le jeu du joueur
-            
+            self.compteur_cartes = self.compteur_cartes - 1
         elif choix_aleatoire_carte == 12:
             print("Vous avez tirée une Dame ")
             self.liste_de_la_main_du_joueur.append("Dame")
             self.la_main_du_joueur+=10 
+            self.compteur_cartes = self.compteur_cartes - 1
             
         elif choix_aleatoire_carte == 13:
             print("Vous avez tirée un Roi")
             self.liste_de_la_main_du_joueur.append("Roi")
             self.la_main_du_joueur+=10 
+            self.compteur_cartes = self.compteur_cartes - 1
         elif choix_aleatoire_carte == 14:
             print("Vous avez tirée un AS")
             self.liste_de_la_main_du_joueur.append("AS")
             choisir_valeur = int(input("Vous pouvez choisir ce que vous preferer comme valeur 1 ou 11  "))
             self.la_main_du_joueur+=choisir_valeur
+            self.compteur_cartes = self.compteur_cartes - 1
         else:
             print("Vous avez tirée un ",choix_aleatoire_carte)
             self.liste_de_la_main_du_joueur.append(choix_aleatoire_carte)
@@ -83,44 +91,49 @@ class BlackJack:
                 del self.jeu_de_carte[carte]
                 break # pour eviter de supprimer les autres cartes de même valeur 
 
-            self.derniere_carte-=1 # vu qu'on a supprimé une carte on enleve 1 à la longueur du jeu
+        
         
         
         return self.la_main_du_joueur
     
     
-    def croupier(self):
+    def croupier(self,liste_de_la_main_du_croupier=[]):
         """ 
         On choisi une carte aléatoirement pour le joueur.
         On le met dans une liste avec les bons termes des cartes Ex : 11 sera Vallée dans la liste
         Puis on ajoute la valeur de la carte au jeu du joueur    
         Supprime la carte du jeu 
         """
-       
+        self.liste_de_la_main_du_croupier = liste_de_la_main_du_croupier # stockera le jeu du croupier dans une liste 
         print("Le croupier s'apprête à tirer une carte")
         choix_aleatoire_carte = random.choice(self.jeu_de_carte)
         # Ajoute les cartes du joueur a son dek qui est une liste
-        if choix_aleatoire_carte == 11:
-            print("Le croupier a tirée un Vallée") 
-            self.liste_de_la_main_du_croupier.append("Vallée") # ajoute la valeur du choix aleatoire dans la liste du jeu du joueur
+        if choix_aleatoire_carte == 2 or choix_aleatoire_carte == 3 or choix_aleatoire_carte == 4 or choix_aleatoire_carte == 5 or choix_aleatoire_carte == 6:
+            print("Le croupier a tirée un ",choix_aleatoire_carte)
+            self.liste_de_la_main_du_croupier.append(choix_aleatoire_carte)
+            self.la_main_du_croupier+=choix_aleatoire_carte
+            self.compteur_cartes = self.compteur_cartes + 1
+        elif choix_aleatoire_carte == 11:
+            print("Le croupier a tirée un Valet") 
+            self.liste_de_la_main_du_croupier.append("Valet") # ajoute la valeur du choix aleatoire dans la liste du jeu du joueur
             self.la_main_du_croupier+=10 # ajoute la valeur du choix aleatoire dans le  jeu du joueur
-            
+            self.compteur_cartes = self.compteur_cartes - 1
         elif choix_aleatoire_carte == 12:
             print("Le croupier a tirée une Dame ")
             self.liste_de_la_main_du_croupier.append("Dame")
             self.la_main_du_croupier+=10
-            
+            self.compteur_cartes = self.compteur_cartes - 1
         elif choix_aleatoire_carte == 13:
             print("Le croupier a tirée  Roi")
             self.liste_de_la_main_du_croupier.append("Roi")
             self.la_main_du_croupier+=10
-            
+            self.compteur_cartes = self.compteur_cartes - 1
         elif choix_aleatoire_carte == 14:
             print("Le croupier a tirée un AS")
             self.liste_de_la_main_du_croupier.append("AS")
             choisir_valeur = int(input("Le croupier choisi sa préférence  comme valeur 1 ou 11 "))
             self.la_main_du_croupier+=choisir_valeur
-            
+            self.compteur_cartes = self.compteur_cartes - 1
         else: 
             print("Le croupier a tirée un ",choix_aleatoire_carte)
             self.liste_de_la_main_du_croupier.append(choix_aleatoire_carte)
@@ -131,9 +144,7 @@ class BlackJack:
             if choix_aleatoire_carte == self.jeu_de_carte[carte]:
                 del self.jeu_de_carte[carte]
                 break # pour eviter de supprimer les autres cartes de même valeur 
-    
-            self.derniere_carte-=1 # vu qu'on a supprimé une carte on enleve 1 à la longueur du jeu
- 
+
         return self.la_main_du_croupier
     
     def voir_le_jeu_joueur(self):
@@ -147,30 +158,34 @@ class BlackJack:
        for x in range(len(self.liste_de_la_main_du_croupier)):
             print(self.liste_de_la_main_du_croupier[x],end=" ")
         
-    def jeu_du_joueur(self,choix_du_joueur=0,tour=0):
-        self.tour = tour # permet de savoir à quelle tour on est 
-        self.choix_du_joueur = choix_du_joueur # permettra de savoir si le joueur veut continuer a tirer des cartes ou non 
-        
+    def jeu_du_joueur(self,choix_du_joueur=0):
         """
         Tant que le joueur decide de tirer une carte on vérifie : 
-        Si la main du joueur est supérieur a 21 et si oui, et si cela a été fait le cas dès le premier tour
+        Si la main du joueur est supérieur a 21 et si oui, si ça été  le cas dès le premier tour
         Si le joueur décide de piocher une autre carte on vérifie que sa main n'est pas supérieur a 21 
         Si elle est supérieur à 21 le joueur à perdu 
         Si le joueur décide de ne plus piocher de carte on sort de la boucle 
         """
+        
+        self.choix_du_joueur = choix_du_joueur # permettra de savoir si le joueur veut continuer a tirer des cartes ou non 
+        
+
         black.joueur()
+        if self.la_main_du_joueur == 21 and self.tour == 1: # Si des le premier tour le joueur à 21 alors BlackJack
+            
+            print("BLACKJACK !!!!!!!")
+            self.start_game = False
         while self.choix_du_joueur == 0:
             print("La valeur de votre jeu est :",self.la_main_du_joueur)
             print("Votre jeu est : "),black.voir_le_jeu_joueur()
-            if self.la_main_du_joueur == 21 and self.tour == 1:
-                    print("BLACKJACK !!!!!!!")
-                    break
-                    self.start_game = False
+            print("Le compteur est à",self.compteur_cartes)
+
+                    
                     
             if  self.la_main_du_joueur > 21:
                 print()
                 print("Vous avez perdu")
-                self.start_game = False
+                self.start_game = False # la partie est terminée 
                 break 
             choisir_de_tirer_une_autre_carte_joueur = input("Si vous voulez recevoir encore une carte taper 1 sinon appuyer sur n'importe quelle touche ")
             if choisir_de_tirer_une_autre_carte_joueur == "1":
@@ -178,7 +193,6 @@ class BlackJack:
             else:
                 print("Le joueur a choisi de ne plus/pas tirer de carte")
                 self.choix_du_joueur = 1
-            self.tour+=1
         
     def jeu_du_croupier(self):
         """  
@@ -218,7 +232,7 @@ class BlackJack:
         Si le jeu du joueur et mieux que celui du croupier : On affiche Vous avez gagné
         Si le jeu du joueur est inférieur à celui du croupier : On affiche Vous avez perdu 
         """
-        if self.start_game:
+        if self.start_game: # Verifie si aucun d'entre eux a dépassé 21 
             # Si le jeu continue et que le joueur et le croupier on fini de piocher 
             # On compare avec trois conditions
             # SI il y a une égalité, si le joueur à une meilleure main ou si c'est le cas du croupier 
@@ -232,7 +246,6 @@ class BlackJack:
             if self.la_main_du_croupier > self.la_main_du_joueur:
                 print("Vous avez perdu")
         self.start_game = False # On déclare que la partie est terminé 
-        
         return self.partie_gagner_joueur
     
     def nombre_de_partie_jouer(self):
@@ -260,32 +273,35 @@ class BlackJack:
             self.la_main_du_joueur = 0 # On reinitialise la main du joueur à 0 
             self.la_main_du_croupier = 0 # On reinitialise la main du croupier a 0 
             if len(self.jeu_de_carte) <= 50:
-                self.jeu_de_carte = []
+                self.jeu_de_carte = [] # si il y a 50 cartes ou moins dans le jeu on les enleve
         print()    
-        nouvelle_partie = int(input("Voulez vous faire une partie  1 = Oui, Autre touche = Non "))
+        nouvelle_partie = input("Voulez vous faire une partie  1 = Oui, Autre touche = Non ")
         print()
-        if nouvelle_partie == 1:
+        if nouvelle_partie == "1":
             self.start_game = True # On peut refaire une partie 
             
         return nouvelle_partie  
 
-    def probability_to_win(self):
-        """ Permet de calculer la probabilité que le joueur a de gagner grace à la méthode ... """
-        pass
         
 black = BlackJack()
 ajout_du_jeu_de_carte = black.ajouter_cartes_et_bruler() # Fonctionne correctement 
 partie = black.restart_game()
-while partie ==1:
+while partie =="1":
     black.joueur()
     black.croupier()
     black.jeu_du_joueur()
     black.jeu_du_croupier()
     gagnant = black.who_win()
     nombre_partie_jouer = black.nombre_de_partie_jouer()
-    if black.restart_game() != 1:
-        partie = 0
+    if black.restart_game() != "1":
+        partie = "0"
     if len(ajout_du_jeu_de_carte) <= 50:
-        black.ajouter_cartes_et_bruler
+        black.ajouter_cartes_et_bruler()
         
-print("Le joueur à gagner :",gagnant,"sur",nombre_partie_jouer,"partie")
+print("Le joueur à gagner :",gagnant,"partie sur",nombre_partie_jouer,"partie")
+
+#a = black.jeu_du_joueur()
+
+       
+        
+        
