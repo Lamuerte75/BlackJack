@@ -40,14 +40,13 @@ class BlackJack:
        
          
     
-    def joueur(self,liste_de_la_main_du_joueur=[]):
+    def joueur(self):
         """ 
         On choisi une carte aléatoirement pour le joueur.
         On le met dans une liste avec les bons termes des cartes Ex : 11 sera Vallée dans la liste
         Puis on ajoute la valeur de la carte au jeu du joueur    
         Supprime la carte du jeu 
         """
-        self.liste_de_la_main_du_joueur = liste_de_la_main_du_joueur # stockera le jeu du joueur dans une liste 
         
        
         print("Le joueur s'apprête à tirer une carte")
@@ -97,14 +96,14 @@ class BlackJack:
         return self.la_main_du_joueur
     
     
-    def croupier(self,liste_de_la_main_du_croupier=[]):
+    def croupier(self):
         """ 
         On choisi une carte aléatoirement pour le joueur.
         On le met dans une liste avec les bons termes des cartes Ex : 11 sera Vallée dans la liste
         Puis on ajoute la valeur de la carte au jeu du joueur    
         Supprime la carte du jeu 
         """
-        self.liste_de_la_main_du_croupier = liste_de_la_main_du_croupier # stockera le jeu du croupier dans une liste 
+        
         print("Le croupier s'apprête à tirer une carte")
         choix_aleatoire_carte = random.choice(self.jeu_de_carte)
         # Ajoute les cartes du joueur a son dek qui est une liste
