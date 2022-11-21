@@ -1,3 +1,4 @@
+
 import random 
 class BlackJack:
     def __init__(self,start_game=True,la_main_du_joueur=0,la_main_du_croupier=0,partie_gagner_joueur=0,partie_total_jouer=0,compteur_cartes=0,liste_de_la_main_du_joueur=[],liste_de_la_main_du_croupier=[]):
@@ -52,29 +53,34 @@ class BlackJack:
         print("Le joueur s'apprête à tirer une carte")
         choix_aleatoire_carte = random.choice(self.jeu_de_carte)
         if choix_aleatoire_carte == 2 or choix_aleatoire_carte == 3 or choix_aleatoire_carte == 4 or choix_aleatoire_carte == 5 or choix_aleatoire_carte == 6:
-            print("Le croupier a tirée un ",choix_aleatoire_carte)
+            print("Vous avez tiré un ",choix_aleatoire_carte)
             self.liste_de_la_main_du_joueur.append(choix_aleatoire_carte)
             self.la_main_du_joueur+=choix_aleatoire_carte
             self.compteur_cartes = self.compteur_cartes + 1
         # Ajoute les cartes du joueur a son dek qui est une liste
+        elif choix_aleatoire_carte == 10:
+            print("Vous avez tiré un ",choix_aleatoire_carte)
+            self.liste_de_la_main_du_joueur.append(choix_aleatoire_carte)
+            self.la_main_du_joueur+=choix_aleatoire_carte
+            self.compteur_cartes = self.compteur_cartes - 1
         elif choix_aleatoire_carte == 11:
             print("Vous avez tiré un Valet")
             self.liste_de_la_main_du_joueur.append("Valet") # ajoute la valeur du choix aleatoire dans la liste du jeu du joueur
             self.la_main_du_joueur+=10 # ajoute la valeur du choix aleatoire dans le jeu du joueur
             self.compteur_cartes = self.compteur_cartes - 1
         elif choix_aleatoire_carte == 12:
-            print("Vous avez tirée une Dame ")
+            print("Vous avez tiré une Dame ")
             self.liste_de_la_main_du_joueur.append("Dame")
             self.la_main_du_joueur+=10 
             self.compteur_cartes = self.compteur_cartes - 1
             
         elif choix_aleatoire_carte == 13:
-            print("Vous avez tirée un Roi")
+            print("Vous avez tiré un Roi")
             self.liste_de_la_main_du_joueur.append("Roi")
             self.la_main_du_joueur+=10 
             self.compteur_cartes = self.compteur_cartes - 1
         elif choix_aleatoire_carte == 14:
-            print("Vous avez tirée un AS")
+            print("Vous avez tiré un AS")
             self.liste_de_la_main_du_joueur.append("AS")
             choisir_valeur = int(input("Vous pouvez choisir ce que vous preferer comme valeur 1 ou 11  "))
             self.la_main_du_joueur+=choisir_valeur
@@ -100,7 +106,7 @@ class BlackJack:
         """ 
         On choisi une carte aléatoirement pour le joueur.
         On le met dans une liste avec les bons termes des cartes Ex : 11 sera Vallée dans la liste
-        Puis on ajoute la valeur de la carte au jeu du joueur    
+        Puis on ajoute la valeur de la carte au jeu du joueur, et on incrémente ou décremente le compteur dépendant de la carte tirée
         Supprime la carte du jeu 
         """
         
@@ -112,6 +118,12 @@ class BlackJack:
             self.liste_de_la_main_du_croupier.append(choix_aleatoire_carte)
             self.la_main_du_croupier+=choix_aleatoire_carte
             self.compteur_cartes = self.compteur_cartes + 1
+        elif choix_aleatoire_carte == 10:
+            print("Le croupier a tirée un ",choix_aleatoire_carte)
+            self.liste_de_la_main_du_croupier.append(choix_aleatoire_carte)
+            self.la_main_du_croupier+=choix_aleatoire_carte
+            self.compteur_cartes+=1
+            
         elif choix_aleatoire_carte == 11:
             print("Le croupier a tirée un Valet") 
             self.liste_de_la_main_du_croupier.append("Valet") # ajoute la valeur du choix aleatoire dans la liste du jeu du joueur
@@ -171,15 +183,24 @@ class BlackJack:
 
         black.joueur()
         if self.la_main_du_joueur == 21 and self.tour == 1: # Si des le premier tour le joueur à 21 alors BlackJack
-            
             print("BLACKJACK !!!!!!!")
             self.start_game = False
+            
         while self.choix_du_joueur == 0:
             print("La valeur de votre jeu est :",self.la_main_du_joueur)
             print("Votre jeu est : "),black.voir_le_jeu_joueur()
+            print()
             print("Le compteur est à",self.compteur_cartes)
-
-                    
+            if self.compteur_cartes == 2: 
+                print()
+                print("Le sabot chauffe ")
+            
+            if self.compteur_cartes >= 3:
+                print()
+                print("Le sabot est chaud ")
+            if self.compteur_cartes < 0:
+                print()
+                print("Le sabot est froid")
                     
             if  self.la_main_du_joueur > 21:
                 print()
@@ -298,9 +319,3 @@ while partie =="1":
         black.ajouter_cartes_et_bruler()
         
 print("Le joueur à gagner :",gagnant,"partie sur",nombre_partie_jouer,"partie")
-
-#a = black.jeu_du_joueur()
-
-       
-        
-        
