@@ -5,9 +5,13 @@ https://www.guide-blackjack.com/regles-du-black-jack.html
 https://www.youtube.com/watch?v=ddu_fYRuv5I&feature=youtu.be 
 
 Si vous n'avez pas la foi je vais vous expliquer brièvement comment jouer au Blackjack :
-Il faut gagner le croupier sans dépasser 21 si ni le joueur ni le croupier à dépasser 21 on va comparer leurs cartes
-Le plus haut gagne. 
-Les bûches donc les Vallets Dame Roi AS ont une valeur de 10 
+
+Le but est de gagner le croupier.
+Ni le joueur ni le croupier doit dépasser 21 sinon ils ont perdus. 
+Les deux peuvent tirer des cartes. 
+Une fois que les deux ne veulent plus tirer de carte on compare leur jeu.
+Celui qui à le meilleur jeu gagne la partie.
+Les bûches donc les Vallets Dame Roi AS et 10  ont une valeur de 10 
 L'AS vaut 1 ou 11 dépendant du Jeu 
 
 
@@ -16,7 +20,7 @@ Détails du programme pour une bonne compréhension ultérieur :
 1. Pas de mise de la part du joueur 
 2. Au lieu de la possibilité de plusieurs joueurs : Un seul joueur s'affrontera contre le croupier
 3. Interdiction de doubler 
-4. Le sabot sera constitué de 6 jeu de cartes ( comme le BlackJack est joué en France
+4. Le sabot sera constitué de 6 jeu de cartes ( comme le BlackJack est joué en France)
 
 Maintenant que vous avez eu un aperçu de la phase visible, nous allons approfondir le sujet en séparant la compréhension du programme et son élaboration en 3 axes :
 Premièrement nous définirons les méthodes utilisés ainsi que les/leurs attributs. Puis par la suite nous expliquerons en bref dans un ordre chronologique les Etapes qu'effectue mon programme, et pour finir nous verrons le journal de bord ( les problèmes que j'ai pu rencontrer durant la conception de ce projet).
@@ -33,20 +37,17 @@ jeu_du_joueur --> Permet au joueur de voir si il veut piocher une autre carte ou
 jeu_du_croupier --> Le croupier pioche une carte tant que la valeur de son jeu est inférieur a 18 et vérifie qu'il ne dépasse pas 21
 who_win --> Permet de savoir qui a gagner grâce à des conditions
 nombre_de_partie_jouer --> Comptabilise le nombre de partie jouer
-restart_game --> Reinitialise la main du croupier et du joueur, ainsi que leur valeur et si il y 50 cartes ou moins dans le jeu, On vide le jeu de cartes.
-probability_to_win --> Qui va nous permettre de connaitre la probabilité du joueur de gagner # Méthodes pas encore faites
+restart_game --> Reinitialise la main du croupier et du joueur, ainsi que leur valeur de jeu, et décision du joueur pour relancer une partie ou non et permet de réinitialiser le jeu a 0 si il y a 50 cartes ou moins restante dans le jeu actuelle.
+
 
 
 Les attributs :
 self.jeu_de_carte -->list : Permet de stocker le jeu de cartes 
-self.derniere_carte -->int : Permet de
 self.start_game -->bool :  Permet de commencer le jeu mais aussi l'arrêter 
 self.la_main_du_joueur -->int : Permet de savoir la valeur de la main du joueur la même chose a été fait pour le croupier
 self.liste_de_la_main_du_joueur -->list : Permet de stocker les cartes du joueur dans une liste la même chose a été fait pour le croupier
 self.choix_du_joueur -->int : Permet de savoir quand le joueur ne voudra plus tirer de cartes
-self.tour -->int : Permet de compter le nombre de tour (utilisation : juste pour le premier au cas où le joueur  fait un blackjack)
-self.derniere_carte -->int : Je pense qu'elle me sert plus à rien du au fait que j'utilise random.choice mais elle permettait d'avoir le dernier indice du jeu de carte
-
+self.compteur_cartes -->int : Permet de compter les cartes
 
 Comment fonctionne le Programme : 
 
@@ -63,7 +64,7 @@ Compter les cartes :
 
 Pour compter les cartes, nous utiliserons la méthode Hi - Lo : 
 Elle est très simple à utilisé 
-Quand le croupier tire une carte de haute valeur : AS, Roi, Dame, Vallet On enleve 1 au compteur
+Quand le croupier tire une carte de haute valeur : AS, Roi, Dame, Vallet,10 On enleve 1 au compteur
 Si il tire 7, 8 ou 9 on ajoute 0 au compteur
 Si il tire 2, 3 , 4 , 5 ou 6 on ajoute 1 au compteur 
 Plus le sabot est chaud donc que le compteur >= 2 plus on à une chance de tomber sur une carte élevé et donc de gagner
