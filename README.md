@@ -78,6 +78,7 @@ Dans le Journal de Bord je ne parlerais que des problèmes moyens ou majeurs que
 Journal de Bord : 
 
 11/11/2022 : 
+
 Lorsque je voulais bruler les cartes (donc les supprimer) du jeu de cartes un problème d'index avait lieu : list index out of range créer lorsque le joueur voulait tirer une carte.
 Le problème étant dû a self.compteur_dernier qui était était trop elever par rapport a la taille du jeu de cartes. 
 J'ai pu le résoudre en enlevant 1 au compteur dernier.
